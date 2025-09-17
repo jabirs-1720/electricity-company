@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # Apps
+    'projects',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +119,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated'
+    )
 }
 
 CSRF_SECURE = os.getenv('CSRF_SECURE', 'False') == 'True'
