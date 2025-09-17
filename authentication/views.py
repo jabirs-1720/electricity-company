@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login, logout as auth_logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from rest_framework.decorators import api_view, permission_classes
@@ -37,4 +37,14 @@ def logout(request):
 
 class Login(GenericAPIView):
     permission_classes = [GuestOnly]
-    serialzier_class = LoginSerializer
+    serializer_class = LoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            login(request, user)
+            return Response(provide_user_data(request.user), status=200)
+
+        return Response(serializer.errors, status=400)
