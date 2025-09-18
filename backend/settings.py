@@ -130,6 +130,9 @@ REST_FRAMEWORK = {
     ),
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+]
 CSRF_SECURE = os.getenv('CSRF_SECURE', 'False') == 'True'
 SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'False') == 'True'
 
